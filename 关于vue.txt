@@ -1,0 +1,6 @@
+computed属性响应机制源码
+1. data 属性初始化 getter setter
+2. computed 计算属性初始化，提供的函数将用作属性 vm.reversedMessage 的 getter
+3. 当首次获取 reversedMessage 计算属性的值时，Dep 开始依赖收集
+4. 在执行 message getter 方法时，如果 Dep 处于依赖收集状态，则判定 message 为 reversedMessage 的依赖，并建立依赖关系
+5. 当 message 发生变化时，根据依赖关系，触发 reverseMessage 的重新计算
