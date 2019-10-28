@@ -3,6 +3,7 @@
 </template>
 <script>
 import echarts from "echarts";
+require('echarts/theme/macarons') // echarts theme
 export default {
   props: ["data", "chartType"],
   data: function() {
@@ -69,7 +70,7 @@ export default {
   mounted() {
     /* eslint-disable*/
     const dom = this.$refs.chart;
-    this.instance = echarts.init(dom);
+    this.instance = echarts.init(dom, "macarons");
     this.instanceRelease = this.instance.setOption(this.options);
   },
   destroyed() {

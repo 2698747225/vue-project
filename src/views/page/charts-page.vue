@@ -1,12 +1,53 @@
 <template>
-  <div>
-    <h2 style="text-align:left;font-weight:bold;color:#475669;">中后台</h2>
+  <div class="charts-page">
+    <h2>中后台</h2>
+    <template>
+      <Row>
+        <Col span="8" style="padding-right:15px;">
+          <Card :bordered="false">
+            <div class="charts-total">
+              <div class="icon-seven">
+                <Icon type="md-people" />
+              </div>
+              <div style="display:inline;font-weight:bold;">
+                <div style="font-size:16px;color:rgba(0,0,0,0.45)">2017年合计</div>
+                <div style="font-size:20px;">{{total[0]||0}}</div>
+              </div>
+            </div>
+          </Card>
+        </Col>
+        <Col span="8" style="padding-right:15px;">
+          <Card :bordered="false">
+            <div class="charts-total">
+              <div class="icon-eight">
+                <Icon type="ios-chatboxes-outline" />
+              </div>
+              <div style="display:inline;font-weight:bold;">
+                <div style="font-size:16px;color:rgba(0,0,0,0.45)">2018年合计</div>
+                <div style="font-size:20px;">{{total[1]||0}}</div>
+              </div>
+            </div>
+          </Card>
+        </Col>
+        <Col span="8">
+          <Card :bordered="false">
+            <div class="charts-total">
+              <div class="icon-nine">
+                <Icon type="ios-appstore-outline" />
+              </div>
+              <div style="display:inline;font-weight:bold;">
+                <div style="font-size:16px;color:rgba(0,0,0,0.45)">2018年合计</div>
+                <div style="font-size:20px;">{{total[2]||0}}</div>
+              </div>
+            </div>
+          </Card>
+        </Col>
+      </Row>
+    </template>
     <template>
       <Card :bordered="false">
-        <div
-          style="display:flex;align-items: flex-start;margin-bottom:10px;justify-content: space-between;"
-        >
-          <div style="display:flex;flex-direction: column;">
+        <div class="chart-d">
+          <div class="chart-desc">
             <label>当前时间</label>
             <label style="font-size:12px;">{{new Date()|timeFilter('yyyy-MM-dd hh:mm:ss')}}</label>
           </div>
@@ -23,10 +64,8 @@
       <Row>
         <Col span="12">
           <Card :bordered="false" style="margin-right:12px !important;height:331px;">
-            <div
-              style="display:flex;align-items: flex-start;margin-bottom:10px;justify-content: space-between;"
-            >
-              <div style="display:flex;flex-direction: column;">
+            <div class="chart-d">
+              <div class="chart-desc">
                 <label>当前时间</label>
                 <label style="font-size:12px;">{{new Date()|timeFilter('yyyy-MM-dd hh:mm:ss')}}</label>
               </div>
@@ -54,7 +93,17 @@ export default {
   components: { chart },
   data() {
     return {
-      mockData: [],
+      mockData: [
+        {
+          title: "2019年占比图"
+        },
+        {
+          title: "2018年占比图"
+        },
+        {
+          title: "2017年占比图"
+        }
+      ],
       xData: [
         "一月",
         "二月",
@@ -72,120 +121,89 @@ export default {
       columns1: [
         {
           title: "所在年份",
-          key: "year"
+          key: "year",
+          width: 120
         },
         {
           title: "一月",
-          key: "january"
+          key: "一月"
         },
         {
           title: "二月",
-          key: "february"
+          key: "二月"
         },
         {
           title: "三月",
-          key: "march"
+          key: "三月"
         },
         {
           title: "四月",
-          key: "april"
+          key: "四月"
         },
         {
           title: "五月",
-          key: "may"
+          key: "五月"
         },
         {
           title: "六月",
-          key: "june"
+          key: "六月"
         },
         {
           title: "七月",
-          key: "july"
+          key: "七月"
         },
         {
           title: "八月",
-          key: "august"
+          key: "八月"
         },
         {
           title: "九月",
-          key: "september"
+          key: "九月"
         },
         {
           title: "十月",
-          key: "october"
+          key: "十月"
         },
         {
           title: "十一月",
-          key: "november"
+          key: "十一月"
         },
         {
           title: "十二月",
-          key: "december"
-        }
-      ],
-      data1: [
-        {
-          year: "2017年占比图",
-          january: Math.ceil(Math.random() * 1000),
-          february: Math.ceil(Math.random() * 1000),
-          march: Math.ceil(Math.random() * 1000),
-          april: Math.ceil(Math.random() * 1000),
-          may: Math.ceil(Math.random() * 1000),
-          june: Math.ceil(Math.random() * 1000),
-          july: Math.ceil(Math.random() * 1000),
-          august: Math.ceil(Math.random() * 1000),
-          september: Math.ceil(Math.random() * 1000),
-          october: Math.ceil(Math.random() * 1000),
-          november: Math.ceil(Math.random() * 1000),
-          december: Math.ceil(Math.random() * 1000)
-        },
-        {
-          year: "2018年占比图",
-          january: Math.ceil(Math.random() * 1000),
-          february: Math.ceil(Math.random() * 1000),
-          march: Math.ceil(Math.random() * 1000),
-          april: Math.ceil(Math.random() * 1000),
-          may: Math.ceil(Math.random() * 1000),
-          june: Math.ceil(Math.random() * 1000),
-          july: Math.ceil(Math.random() * 1000),
-          august: Math.ceil(Math.random() * 1000),
-          september: Math.ceil(Math.random() * 1000),
-          october: Math.ceil(Math.random() * 1000),
-          november: Math.ceil(Math.random() * 1000),
-          december: Math.ceil(Math.random() * 1000)
-        },
-        {
-          year: "2019年占比图",
-          january: Math.ceil(Math.random() * 1000),
-          february: Math.ceil(Math.random() * 1000),
-          march: Math.ceil(Math.random() * 1000),
-          april: Math.ceil(Math.random() * 1000),
-          may: Math.ceil(Math.random() * 1000),
-          june: Math.ceil(Math.random() * 1000),
-          july: Math.ceil(Math.random() * 1000),
-          august: Math.ceil(Math.random() * 1000),
-          september: Math.ceil(Math.random() * 1000),
-          october: Math.ceil(Math.random() * 1000),
-          november: Math.ceil(Math.random() * 1000),
-          december: Math.ceil(Math.random() * 1000)
+          key: "十二月"
         }
       ]
     };
   },
   created() {
-    this.mockData = [
-      {
-        title: "2019年占比图"
-      },
-      {
-        title: "2018年占比图"
-      },
-      {
-        title: "2017年占比图"
-      }
-    ];
-    this.mockData2 = [];
     this.randMock();
+  },
+  computed: {
+    data1() {
+      return (
+        this.mockData &&
+        this.mockData.map(item => {
+          return {
+            year: item.title,
+            ...(item.data &&
+              Object.fromEntries(
+                item.data.map(data => {
+                  return [data.x, data.y];
+                })
+              ))
+          };
+        })
+      );
+    },
+    total() {
+      return this.mockData.map(({ data }) => {
+        return data
+          .map(({ y }) => y)
+          .reduce((v1, v2) => {
+            return v1 + v2;
+          });
+      });
+    }
   },
   methods: {
     randMock() {
@@ -202,3 +220,80 @@ export default {
   }
 };
 </script>
+<style lang="less" scoped>
+.charts-page {
+  & > h2 {
+    text-align: left;
+    font-weight: bold;
+    color: #475669;
+  }
+  .chart-d {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    .chart-desc {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  .charts-total {
+    display: flex;
+    justify-content: space-between;
+  }
+  /deep/ .ivu-table-cell {
+    padding: 0 !important;
+  }
+  .icon-seven {
+    height: 55px;
+    width: 60px;
+    border-radius: 6px;
+    &:hover {
+      background-color: #40c9c6;
+      transition: all 0.38s ease-out;
+    }
+    & > i {
+      font-size: 50px;
+      color: #40c9c6;
+      &:hover {
+        color: #fff;
+        transition: all 0.38s ease-out;
+      }
+    }
+  }
+  .icon-eight {
+    height: 55px;
+    width: 60px;
+    border-radius: 6px;
+    &:hover {
+      background-color: #36a3f7;
+      transition: all 0.38s ease-out;
+    }
+    & > i {
+      font-size: 50px;
+      color: #36a3f7;
+      &:hover {
+        color: #fff;
+        transition: all 0.38s ease-out;
+      }
+    }
+  }
+  .icon-nine {
+    height: 55px;
+    width: 60px;
+    border-radius: 6px;
+    &:hover {
+      background-color: #f4516c;
+      transition: all 0.38s ease-out;
+    }
+    & > i {
+      font-size: 50px;
+      color: #f4516c;
+      &:hover {
+        color: #fff;
+        transition: all 0.38s ease-out;
+      }
+    }
+  }
+}
+</style>

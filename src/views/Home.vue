@@ -7,7 +7,12 @@
       </div>
       <div style="border-bottom:1px solid #cdcdcd">
         <Menu mode="horizontal" class="header-menu">
-          <MenuItem :name="item.value" :key="item.value" v-for="item in menuList">
+          <MenuItem
+            :name="item.value"
+            :key="item.value"
+            v-for="item in menuList"
+            @click.native="item.action()"
+          >
             <Icon type="ios-paper" />
             {{item.name}}
           </MenuItem>
@@ -66,10 +71,17 @@ export default {
     // HelloWorld
   },
   data() {
+    const self = this;
     return {
       menuList: [
-        { name: "ant-design-test", value: 1 },
-        { name: "插入", value: 2 }
+        { name: "ant-design-test", value: 1, action() {} },
+        {
+          name: "点击进入",
+          value: 2,
+          action: () => {
+            self.$router.push("homePage");
+          }
+        }
       ]
     };
   },
@@ -145,6 +157,9 @@ ul {
   list-style: none;
 }
 
+img {
+  width: 100%;
+}
 .ant-carousel img {
   // display: inline-block !important;
 }

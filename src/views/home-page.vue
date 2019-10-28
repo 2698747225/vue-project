@@ -139,6 +139,11 @@ export default {
       height: 100%;
     }
   }
+  &>{
+    /deep/ .ivu-menu-submenu-title{
+      text-align: left;
+    }
+  }
 }
 
 .badge {
