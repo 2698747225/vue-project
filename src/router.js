@@ -19,14 +19,28 @@ export default new Router({
       children: [{
           path: 'chartPage',
           component: () => import('@views/page/charts-page'),
-          meta: ['图表', '用户分布']
+          meta: ['用户分布', '图表']
         },
         {
           path: 'export',
           component: async () => {
             return import('@views/page/xlsx-parse.vue')
           },
-          meta: ['导出', '用户数据']
+          meta: ['用户数据', '导出']
+        },
+        {
+          path: 'import',
+          component: async () => {
+            return import('@views/page/xlsx-import.vue')
+          },
+          meta: ['用户数据', '导入']
+        },
+        {
+          path: 'splitPanel',
+          component: async () => {
+            return import('@views/page/split-panel-demo/split-panel.vue')
+          },
+          meta: ['组件', '分隔栏']
         },
         {
           path: '',

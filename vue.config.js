@@ -27,6 +27,15 @@ module.exports = {
             new webpack.ProvidePlugin({
                 // $: 'jquery',
             })
-        ]
+        ],
+        module: {
+            rules: [{
+                test: /\.(xlsx|xls)$/,
+                use: [{
+                    loader: 'xlsx-loader',
+                    options: {}
+                }]
+            }]
+        }
     }
 }
