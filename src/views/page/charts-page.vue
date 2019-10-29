@@ -1,6 +1,8 @@
 <template>
   <div class="charts-page">
-    <h2>中后台</h2>
+    <div style="display:flex;justify-content: space-between;">
+      <h2>中后台</h2>
+    </div>
     <template>
       <Row>
         <Col span="8" style="padding-right:15px;">
