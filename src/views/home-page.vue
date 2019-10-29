@@ -1,8 +1,25 @@
 <template>
   <div class="contents">
     <div class="home-tab">
-      <!-------------------------------------- menu ----------------------------------------------->
-      <Menu :theme="'dark'" active-name="1" :open-names="[1]">
+      <Menu :theme="'dark'" :active-name="activeName" :open-names="openNames">
+        <!-- menuList -->
+        <template v-for="item in menuList">
+          <Submenu :name="item.id" :key="item.id">
+            <template slot="title">
+              <Icon :type="item.icon" />
+              {{item.title}}
+            </template>
+            <template v-for="second in item.children">
+              <MenuItem :name="second.id" :key="second.id" :to="second.link">
+                <Icon :type="second.icon" append="true" />
+                {{second.title}}
+              </MenuItem>
+            </template>
+          </Submenu>
+        </template>
+      </Menu>
+      <!-------------------------------------- menu mock----------------------------------------------->
+      <!-- <Menu :theme="'dark'" active-name="1" :open-names="['1']">
         <Submenu name="1">
           <template slot="title">
             <Icon type="ios-paper" />数据管理
@@ -11,7 +28,7 @@
             <Icon type="md-document" :to="'/homePage/chartPage'" />用户列表
           </MenuItem>
           <MenuItem name="1-2">
-            <Icon type="md-chatbubbles" />商家列表
+            <Icon type="md-chatbubbles" :to="'/homePage/export'" />导出
           </MenuItem>
           <MenuItem name="1-3">
             <Icon type="md-chatbubbles" />食品列表
@@ -68,7 +85,7 @@
             <Icon type="md-heart" />说明
           </MenuItem>
         </Submenu>
-      </Menu>
+      </Menu>-->
     </div>
 
     <!-------------------------------------- header ----------------------------------------------->
@@ -80,38 +97,63 @@
         </Breadcrumb>
         <div>
           <Badge class="badge">
-            <img src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+            <Icon type="logo-github" class="head" @click="jump" />
           </Badge>
         </div>
       </div>
       <!-------------------------------------- content ----------------------------------------------->
       <div class="content">
-        <keep-alive>
+        <transition name="fade-transform" mode="out-in">
           <router-view></router-view>
-        </keep-alive>
+        </transition>
       </div>
     </div>
   </div>
 </template>
 <script>
+import menuList from "../shared/menu";
 export default {
   data() {
     return {
-      selectIndex: [1]
+      selectIndex: [1],
+      menuList: menuList,
+      activeName: "",
+      openNames: []
     };
   },
   created() {
-    console.log(this);
+    // 通过router查找对应的menu
+    if (this.menuList && Array.isArray(this.menuList)) {
+      this.getCurrentPath(this.menuList, this.$route.path);
+    }
+  },
+  methods: {
+    getCurrentPath(list, path) {
+      if (list && Array.isArray(list)) {
+        for (const item of list) {
+          if (item.link && item.link === path) {
+            this.activeName = item.id;
+            this.openNames = [item.id.substr(0, 1)];
+            return;
+          } else if (item.children && Array.isArray(item.children)) {
+            this.getCurrentPath(item.children, path);
+          }
+        }
+      }
+    },
+    jump() {
+      window.open("https://github.com/2698747225");
+    }
   }
 };
 </script>
 <style scoped lang="less">
 .home-tab {
+  position: fixed;
   float: left;
-  height: 100%;
+  height: 100vh;
 }
 .tab-content {
-  height: 100%;
   margin-left: 240px;
   background-color: #f0f2f2;
   .tab-header {
@@ -126,7 +168,7 @@ export default {
 .content {
   overflow: auto;
   max-height: calc(100%-50px);
-  margin: 0 24px;
+  margin: 10px 24px 0;
 }
 .contents {
   position: absolute;
@@ -139,8 +181,8 @@ export default {
       height: 100%;
     }
   }
-  &>{
-    /deep/ .ivu-menu-submenu-title{
+  & > {
+    /deep/ .ivu-menu-submenu-title {
       text-align: left;
     }
   }
@@ -154,5 +196,36 @@ export default {
 img {
   width: 100%;
   height: 100%;
+}
+
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+  transition: all 0.5s;
+  transition: opacity 0.2s;
+}
+
+.fade-transform-enter {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.fade-transform-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+.head {
+  font-size: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    transform: scale(1.2, 1.2);
+  }
+}
+</style>
+<style lang="less">
+.tab-content {
+  .content {
+    overflow-x: hidden;
+  }
 }
 </style>
