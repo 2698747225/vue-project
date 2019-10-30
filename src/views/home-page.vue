@@ -90,7 +90,7 @@
 
     <!-------------------------------------- header ----------------------------------------------->
     <div class="tab-content">
-      <div class="tab-header">
+      <div class="tab-header" :class="{fixedHeader:fixedHeader}">
         <Breadcrumb>
           <BreadcrumbItem to="/">首页</BreadcrumbItem>
           <BreadcrumbItem v-for="(item,idx) in $route.meta" :key="idx">{{item}}</BreadcrumbItem>
@@ -102,16 +102,24 @@
         </div>
       </div>
       <!-------------------------------------- content ----------------------------------------------->
-      <div class="content">
+      <div class="content" :class="{fixedContent:fixedHeader}">
         <transition name="fade-transform" mode="out-in">
           <router-view></router-view>
         </transition>
       </div>
     </div>
+    <div class="setting-btn" :style="{backgroundColor:theme}" @click="setting()">
+      <Icon type="md-settings" style="font-size: 40px;line-height: 50px; color: #fff" />
+    </div>
+    <Drawer title="设置" v-model="_showSetting">
+      <setting></setting>
+    </Drawer>
   </div>
 </template>
 <script>
 import menuList from "../shared/menu";
+import setting from "../components/settings";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -121,10 +129,28 @@ export default {
       openNames: []
     };
   },
+  components: {
+    setting
+  },
   created() {
+    console.log(mapState);
     // 通过router查找对应的menu
     if (this.menuList && Array.isArray(this.menuList)) {
       this.getCurrentPath(this.menuList, this.$route.path);
+    }
+  },
+  computed: {
+    ...mapState({
+      theme: state => state.theme.theme,
+      fixedHeader: state => state.setting.fixedHeader
+    }),
+    _showSetting: {
+      get() {
+        return this.$store.state.setting.showSetting;
+      },
+      set(val) {
+        this.$store.dispatch("setting/showSetting", val);
+      }
     }
   },
   methods: {
@@ -143,6 +169,12 @@ export default {
     },
     jump() {
       window.open("https://github.com/2698747225");
+    },
+    setting(evt) {
+      this.$store.dispatch("setting/showSetting", !this._showSetting);
+    },
+    closeModal(evt) {
+      this.$store.dispatch("setting/showSetting", false);
     }
   }
 };
@@ -165,9 +197,14 @@ export default {
     background-color: #fff;
   }
 }
+.fixedHeader {
+  width: calc(~"100% - 240px");
+  position: fixed;
+  z-index: 10;
+}
 .content {
   overflow: auto;
-  max-height: calc(100%-50px);
+  width: calc(~"100% - 50px");
   margin: 10px 24px 0;
 }
 .contents {
@@ -224,8 +261,25 @@ img {
 </style>
 <style lang="less">
 .tab-content {
+  top: 0;
+  position: absolute;
+  right: 0;
+  left: 0;
   .content {
     overflow-x: hidden;
   }
+}
+.setting-btn {
+  border-radius: 5px;
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  right: 0;
+  top: 50%;
+  cursor: pointer;
+}
+.fixedContent {
+  position: relative;
+  top: 50px;
 }
 </style>
