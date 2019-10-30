@@ -30,12 +30,22 @@ module.exports = {
         ],
         module: {
             rules: [{
-                test: /\.(xlsx|xls)$/,
-                use: [{
-                    loader: 'xlsx-loader',
-                    options: {}
-                }]
-            }]
+                    test: /\.(xlsx|xls)$/,
+                    use: [{
+                        loader: 'xlsx-loader',
+                        options: {}
+                    }]
+                },
+                {
+                    test: /\.vue$/,
+                    use: [{
+                        loader: 'iview-loader',
+                        options: {
+                            prefix: false
+                        }
+                    }]
+                }
+            ]
         }
     }
 }
