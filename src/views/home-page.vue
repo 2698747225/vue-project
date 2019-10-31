@@ -33,6 +33,7 @@
             <BreadcrumbItem v-for="(item,idx) in $route.meta" :key="idx">{{item}}</BreadcrumbItem>
           </Breadcrumb>
           <div>
+            <fullscreen style="font-size: 30px;font-weight: 600;cursor: pointer"></fullscreen>
             <Badge class="badge">
               <Icon type="logo-github" class="head" @click="jump" />
             </Badge>
@@ -65,6 +66,7 @@
 import menuList from "../shared/menu";
 import setting from "../components/settings";
 import simpleLink from "../components/simple-link";
+import fullscreen from "../components/screenfull";
 import { mapState } from "vuex";
 export default {
   data() {
@@ -77,7 +79,8 @@ export default {
   },
   components: {
     setting,
-    simpleLink
+    simpleLink,
+    fullscreen
   },
   created() {
     // 通过router查找对应的menu
