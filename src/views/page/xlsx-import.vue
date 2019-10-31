@@ -24,7 +24,6 @@
 </template>
 <script>
 import * as XLSX from "xlsx";
-import "@/assets/导出文件.xlsx";
 export default {
   data() {
     return {
