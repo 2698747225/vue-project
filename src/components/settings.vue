@@ -10,7 +10,7 @@
       </div>
       <div>
         <label>打开快速跳转：</label>
-        <Switch v-model="switch1" />
+        <Switch v-model="openTag" />
       </div>
       <div>
         <label>表头固定：</label>
@@ -44,7 +44,7 @@ export default {
         return this.$store.state.setting.openTagsView;
       },
       set(val) {
-        this.$store.dispatch("setting/changeHeader", val);
+        this.$store.dispatch("setting/openTagsView", val);
       }
     },
     fixedHeader: {

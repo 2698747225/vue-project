@@ -12,7 +12,10 @@ const mutations = {
     },
     SHOW_SETTING(state, v) {
         state.showSetting = v;
-    }
+    },
+    OPEN_TAGS(state, v) {
+        state.openTagsView = v;
+    },
 }
 
 const actions = {
@@ -21,7 +24,10 @@ const actions = {
     },
     showSetting(context, v) {
         context.commit('SHOW_SETTING', v);
-    }
+    },
+    openTagsView(context, v) {
+        context.commit('OPEN_TAGS', v);
+    },
 }
 
 export default {

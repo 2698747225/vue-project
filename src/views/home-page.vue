@@ -19,90 +19,35 @@
         </template>
       </Menu>
       <!-------------------------------------- menu mock----------------------------------------------->
-      <!-- <Menu :theme="'dark'" active-name="1" :open-names="['1']">
-        <Submenu name="1">
-          <template slot="title">
-            <Icon type="ios-paper" />数据管理
-          </template>
-          <MenuItem name="1-1">
-            <Icon type="md-document" :to="'/homePage/chartPage'" />用户列表
-          </MenuItem>
-          <MenuItem name="1-2">
-            <Icon type="md-chatbubbles" :to="'/homePage/export'" />导出
-          </MenuItem>
-          <MenuItem name="1-3">
-            <Icon type="md-chatbubbles" />食品列表
-          </MenuItem>
-          <MenuItem name="1-4">
-            <Icon type="md-chatbubbles" />订单列表
-          </MenuItem>
-          <MenuItem name="1-5">
-            <Icon type="md-chatbubbles" />管理员列表
-          </MenuItem>
-        </Submenu>
-
-        <Submenu name="2">
-          <template slot="title">
-            <Icon type="ios-paper" />添加数据
-          </template>
-          <MenuItem name="2-1">
-            <Icon type="md-heart" />添加商铺
-          </MenuItem>
-          <MenuItem name="2-2">
-            <Icon type="md-leaf" />添加商品
-          </MenuItem>
-        </Submenu>
-
-        <Submenu name="3">
-          <template slot="title">
-            <Icon type="ios-paper" />图表
-          </template>
-          <MenuItem name="3-1">
-            <Icon type="md-heart" />用户分布
-          </MenuItem>
-        </Submenu>
-        <Submenu name="4">
-          <template slot="title">
-            <Icon type="ios-paper" />编辑
-          </template>
-          <MenuItem name="4-1">
-            <Icon type="md-heart" />文本编辑
-          </MenuItem>
-        </Submenu>
-        <Submenu name="5">
-          <template slot="title">
-            <Icon type="ios-paper" />设置
-          </template>
-          <MenuItem name="5-1">
-            <Icon type="md-heart" />管理员设置
-          </MenuItem>
-        </Submenu>
-        <Submenu name="6">
-          <template slot="title">
-            <Icon type="ios-paper" />说明
-          </template>
-          <MenuItem name="6-1">
-            <Icon type="md-heart" />说明
-          </MenuItem>
-        </Submenu>
-      </Menu>-->
     </div>
-
     <!-------------------------------------- header ----------------------------------------------->
     <div class="tab-content">
-      <div class="tab-header" :class="{fixedHeader:fixedHeader}">
-        <Breadcrumb>
-          <BreadcrumbItem to="/">首页</BreadcrumbItem>
-          <BreadcrumbItem v-for="(item,idx) in $route.meta" :key="idx">{{item}}</BreadcrumbItem>
-        </Breadcrumb>
-        <div>
-          <Badge class="badge">
-            <Icon type="logo-github" class="head" @click="jump" />
-          </Badge>
+      <div
+        class="tab-header"
+        :class="{fixedHeader:fixedHeader}"
+        :style="{height:openTagsView?'80px':'50px'}"
+      >
+        <div class="tab-header-bread">
+          <Breadcrumb>
+            <BreadcrumbItem to="/">首页</BreadcrumbItem>
+            <BreadcrumbItem v-for="(item,idx) in $route.meta" :key="idx">{{item}}</BreadcrumbItem>
+          </Breadcrumb>
+          <div>
+            <Badge class="badge">
+              <Icon type="logo-github" class="head" @click="jump" />
+            </Badge>
+          </div>
+        </div>
+        <div class="link" v-if="openTagsView">
+          <simpleLink></simpleLink>
         </div>
       </div>
       <!-------------------------------------- content ----------------------------------------------->
-      <div class="content" :class="{fixedContent:fixedHeader}">
+      <div
+        class="content"
+        :class="{fixedContent:fixedHeader}"
+        :style="{top:fixedHeader?openTagsView?'80px':'50px':null}"
+      >
         <transition name="fade-transform" mode="out-in">
           <router-view></router-view>
         </transition>
@@ -119,6 +64,7 @@
 <script>
 import menuList from "../shared/menu";
 import setting from "../components/settings";
+import simpleLink from "../components/simple-link";
 import { mapState } from "vuex";
 export default {
   data() {
@@ -130,19 +76,28 @@ export default {
     };
   },
   components: {
-    setting
+    setting,
+    simpleLink
   },
   created() {
-    console.log(mapState);
     // 通过router查找对应的menu
     if (this.menuList && Array.isArray(this.menuList)) {
       this.getCurrentPath(this.menuList, this.$route.path);
     }
   },
+  watch: {
+    $route(to, from) {
+      // 对路由变化作出响应...
+      if (this.menuList && Array.isArray(this.menuList)) {
+        this.getCurrentPath(this.menuList, this.$route.path);
+      }
+    }
+  },
   computed: {
     ...mapState({
       theme: state => state.theme.theme,
-      fixedHeader: state => state.setting.fixedHeader
+      fixedHeader: state => state.setting.fixedHeader,
+      openTagsView: state => state.setting.openTagsView
     }),
     _showSetting: {
       get() {
@@ -172,9 +127,6 @@ export default {
     },
     setting(evt) {
       this.$store.dispatch("setting/showSetting", !this._showSetting);
-    },
-    closeModal(evt) {
-      this.$store.dispatch("setting/showSetting", false);
     }
   }
 };
@@ -190,11 +142,19 @@ export default {
   background-color: #f0f2f2;
   .tab-header {
     height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
     background-color: #fff;
+    .tab-header-bread {
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+    }
+    .link {
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
+      padding: 0 20px;
+      text-align: left;
+    }
   }
 }
 .fixedHeader {
@@ -265,6 +225,7 @@ img {
   position: absolute;
   right: 0;
   left: 0;
+  bottom: 0;
   .content {
     overflow-x: hidden;
   }
