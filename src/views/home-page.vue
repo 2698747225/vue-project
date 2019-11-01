@@ -1,5 +1,6 @@
 <template>
   <div class="contents">
+    <!-------------------------------------- menu ----------------------------------------------->
     <div class="home-tab">
       <Menu :theme="'dark'" :active-name="activeName" :open-names="openNames">
         <!-- menuList -->
@@ -18,7 +19,6 @@
           </Submenu>
         </template>
       </Menu>
-      <!-------------------------------------- menu mock----------------------------------------------->
     </div>
     <!-------------------------------------- header ----------------------------------------------->
     <div class="tab-content">
@@ -33,7 +33,11 @@
             <BreadcrumbItem v-for="(item,idx) in $route.meta" :key="idx">{{item}}</BreadcrumbItem>
           </Breadcrumb>
           <div>
-            <fullscreen style="font-size: 30px;font-weight: 600;cursor: pointer"></fullscreen>
+            <Tooltip content="global">
+              <fullscreen
+                style="font-size: 24px;font-weight: 600;cursor: pointer;margin-right:10px;"
+              ></fullscreen>
+            </Tooltip>
             <Badge class="badge">
               <Icon type="logo-github" class="head" @click="jump" />
             </Badge>
