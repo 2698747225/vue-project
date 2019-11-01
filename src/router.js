@@ -17,6 +17,9 @@ export default new Router({
       path: '/homePage',
       component: () => import('@views/home-page'),
       children: [{
+          path: '/',
+          redirect: 'chartPage'
+        }, {
           path: 'chartPage',
           component: () => import('@views/page/charts-page'),
           meta: ['用户分布', '图表']
