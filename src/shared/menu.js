@@ -29,6 +29,22 @@ const menu = [{
         title: '分隔栏',
         icon: 'md-document',
         link: '/homePage/splitPanel'
+    }, {
+        id: '2-2',
+        title: '图片上传',
+        icon: 'md-document',
+        link: '/homePage/imageUpload'
+    }]
+}, {
+    id: '9',
+    title: '错误页面',
+    icon: 'ios-paper',
+    root: true,
+    children: [{
+        id: '9-1',
+        title: '404',
+        icon: 'md-document',
+        link: '/homePage/404'
     }]
 }];
 export default menu;
