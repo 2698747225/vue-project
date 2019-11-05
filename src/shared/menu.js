@@ -41,6 +41,17 @@ const menu = [{
         link: '/homePage/kankan'
     }]
 }, {
+    id: '3',
+    title: '表单',
+    icon: 'ios-paper',
+    root: true,
+    children: [{
+        id: '3-1',
+        title: '基础验证',
+        icon: 'md-document',
+        link: '/homePage/formValidate'
+    }]
+}, {
     id: '9',
     title: '错误页面',
     icon: 'ios-paper',

@@ -67,6 +67,13 @@ export default new Router({
           meta: ['组件', '拖拽']
         },
         {
+          path: 'formValidate',
+          component: async () => {
+            return import('@views/page/form-validate/form-validate-demo.vue')
+          },
+          meta: ['表单', '基础验证']
+        },
+        {
           // 会匹配所有路径
           path: '*',
           redirect: '404',
