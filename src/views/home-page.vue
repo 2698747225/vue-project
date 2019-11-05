@@ -3,6 +3,13 @@
     <!-------------------------------------- menu ----------------------------------------------->
     <div class="home-tab">
       <Menu :theme="'dark'" :active-name="activeName" :open-names="openNames">
+        <!-- logoMenu -->
+        <template v-if="sidebarLogo">
+          <MenuItem name="logo" style="background-color:#363E4F">
+            <img src="../assets/Home_logo.jpg" class="logo-img" />
+            <label class="logo-desc">Vue Project</label>
+          </MenuItem>
+        </template>
         <!-- menuList -->
         <template v-for="item in menuList">
           <Submenu :name="item.id" :key="item.id">
@@ -54,7 +61,9 @@
         :style="{top:fixedHeader?openTagsView?'80px':'50px':null}"
       >
         <transition name="fade-transform" mode="out-in">
-          <router-view></router-view>
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
         </transition>
       </div>
     </div>
@@ -72,6 +81,7 @@ import setting from "../components/settings";
 import simpleLink from "../components/simple-link";
 import fullscreen from "../components/screenfull";
 import { mapState } from "vuex";
+// require('../assets/Home_logo.jpg');
 export default {
   data() {
     return {
@@ -104,7 +114,8 @@ export default {
     ...mapState({
       theme: state => state.theme.theme,
       fixedHeader: state => state.setting.fixedHeader,
-      openTagsView: state => state.setting.openTagsView
+      openTagsView: state => state.setting.openTagsView,
+      sidebarLogo: state => state.setting.sidebarLogo
     }),
     _showSetting: {
       get() {
@@ -143,6 +154,23 @@ export default {
   position: fixed;
   float: left;
   height: 100vh;
+  .logo-img {
+    max-height: 49px;
+    /* display: inline-block; */
+    position: absolute;
+    top: 0;
+    left: 20px;
+    width: initial;
+  }
+  .logo-desc {
+    display: inline-block;
+    margin: 0;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
+    vertical-align: middle;
+  }
 }
 .tab-content {
   margin-left: 240px;
@@ -244,10 +272,16 @@ img {
   height: 50px;
   right: 0;
   top: 50%;
+  z-index: 4;
   cursor: pointer;
 }
 .fixedContent {
   position: relative;
   top: 50px;
+}
+.secondHomeTab {
+  top: 50px;
+  position: relative;
+  height: calc(~"100% - 50px") !important;
 }
 </style>

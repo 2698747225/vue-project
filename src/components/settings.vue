@@ -17,8 +17,8 @@
         <Switch v-model="fixedHeader" />
       </div>
       <div>
-        <label>logo：</label>
-        <Switch v-model="switch1" />
+        <label>侧边栏logo：</label>
+        <Switch v-model="sidebarLogo" />
       </div>
     </div>
   </div>
@@ -53,6 +53,14 @@ export default {
       },
       set(val) {
         this.$store.dispatch("setting/changeHeader", val);
+      }
+    },
+    sidebarLogo: {
+      get() {
+        return this.$store.state.setting.sidebarLogo;
+      },
+      set(val) {
+        this.$store.dispatch("setting/showLogo", val);
       }
     }
   }

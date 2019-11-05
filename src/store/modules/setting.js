@@ -3,7 +3,7 @@ const state = {
     showSetting: setting.showSetting,
     openTagsView: setting.openTagsView,
     fixedHeader: setting.fixedHeader,
-    sidebarLogo: setting.sidebarLogo,
+    sidebarLogo: setting.sidebarLog,
 }
 
 const mutations = {
@@ -16,6 +16,9 @@ const mutations = {
     OPEN_TAGS(state, v) {
         state.openTagsView = v;
     },
+    SHOW_LOGO(state, v) {
+        state.sidebarLogo = v;
+    }
 }
 
 const actions = {
@@ -28,6 +31,9 @@ const actions = {
     openTagsView(context, v) {
         context.commit('OPEN_TAGS', v);
     },
+    showLogo(context, v) {
+        context.commit('SHOW_LOGO', v);
+    }
 }
 
 export default {
