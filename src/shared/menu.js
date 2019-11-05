@@ -34,6 +34,11 @@ const menu = [{
         title: '图片上传',
         icon: 'md-document',
         link: '/homePage/imageUpload'
+    }, {
+        id: '2-3',
+        title: '拖拽',
+        icon: 'md-document',
+        link: '/homePage/kankan'
     }]
 }, {
     id: '9',

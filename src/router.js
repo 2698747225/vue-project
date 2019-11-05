@@ -60,6 +60,13 @@ export default new Router({
           meta: ['组件', '图片上传']
         },
         {
+          path: 'kankan',
+          component: async () => {
+            return import('@views/page/drag-kankan.vue')
+          },
+          meta: ['组件', '拖拽']
+        },
+        {
           // 会匹配所有路径
           path: '*',
           redirect: '404',
