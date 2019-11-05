@@ -69,7 +69,8 @@ export default {
     }),
     qiniuData() {
       return {
-        key: this.file ? this.file.name : "",
+        // 拼接hash，避免在此模式下，七牛不会重复上传的问题
+        key: this.file ? `${this.file.name}_${this.file.response.hash}` : "",
         token: getToken(),
         putExtra: JSON.stringify({
           fname: this.file ? this.file.name : ""
