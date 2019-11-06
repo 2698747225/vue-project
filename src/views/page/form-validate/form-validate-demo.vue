@@ -128,11 +128,10 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@otherH: "200px";
 /deep/ .ivu-date-picker-rel {
   width: 100%;
 }
 .form-card {
-  height: calc(~"100vh - 150px - @otherH");
+  height: calc(~"100vh - 150px - 200px");
 }
 </style>
