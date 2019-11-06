@@ -1,8 +1,8 @@
 <template>
   <div>
     <Card :bordered="false">
-      <div style="text-align:left;">
-        <a href="src/assets/导出文件.xlsx" download="模板文件">下载模板</a>
+      <div style="text-align:left;margin-bottom:10px;">
+        <a :href="qiniuaddr+'/table-list.xlsx'">下载模板</a>
       </div>
       <Upload
         multiple
@@ -17,20 +17,41 @@
         </div>
       </Upload>
       <Row>
-        <Table ref="table" :columns="headers" :data="data"></Table>
+        <Table ref="table" :columns="headers" :data="data" stripe></Table>
+        <div style="margin: 10px;overflow: hidden">
+          <div style="float: right;">
+            <Page
+              :total="allData.length"
+              :current="currentPage"
+              @on-change="changePage"
+              :page-size="pageSize"
+              show-sizer
+            ></Page>
+          </div>
+        </div>
       </Row>
     </Card>
   </div>
 </template>
 <script>
 import * as XLSX from "xlsx";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
       uploadList: [],
       headers: [],
-      data: []
+      data: [],
+      allData: [],
+      pageSize: 10,
+      currentPage: 1
     };
+  },
+  computed: {
+    ...mapState({
+      qiniuaddr: state => state.upload.qiniuaddr,
+      domain: state => state.upload.domain
+    })
   },
   mounted() {
     console.log(this.$refs.upload.fileList);
@@ -67,7 +88,8 @@ export default {
               fixed: "center"
             };
           });
-          self.data = array;
+          self.allData = array;
+          this.changePage(1);
           //mock
           //   var templates = new Array();
           //   var str1 = file.name;
@@ -76,6 +98,14 @@ export default {
           //   alert(JSON.stringify(str));
         }
       };
+    },
+    changePage(num) {
+      if (this.allData && this.allData.length) {
+        this.data = this.allData.filter(
+          (item, index) =>
+            index > (num - 1) * this.pageSize && index < num * this.pageSize
+        );
+      }
     }
   }
 };
