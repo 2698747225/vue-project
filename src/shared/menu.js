@@ -52,6 +52,17 @@ const menu = [{
         link: '/homePage/formValidate'
     }]
 }, {
+    id: '4',
+    title: '表格',
+    icon: 'ios-paper',
+    root: true,
+    children: [{
+        id: '4-1',
+        title: '复杂表格',
+        icon: 'md-document',
+        link: '/homePage/complexTable'
+    }]
+}, {
     id: '9',
     title: '错误页面',
     icon: 'ios-paper',
