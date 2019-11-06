@@ -74,6 +74,13 @@ export default new Router({
           meta: ['表单', '基础验证']
         },
         {
+          path: 'complexTable',
+          component: async () => {
+            return import('@views/page/table/complex-table.vue')
+          },
+          meta: ['表格', '复杂表格']
+        },
+        {
           // 会匹配所有路径
           path: '*',
           redirect: '404',
