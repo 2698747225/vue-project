@@ -42,9 +42,10 @@
   </div>
 </template>
 <script>
-import { getToken } from "../../shared/qiniuUpload";
+import { getToken } from "@/shared/qiniuUpload";
 import { mapState } from "vuex";
-import { local } from "../../utils/storage";
+import { local } from "@/utils/storage";
+import { createHash } from "@/utils/hash";
 export default {
   data() {
     return {
@@ -70,7 +71,7 @@ export default {
     qiniuData() {
       return {
         // 拼接hash，避免在此模式下，七牛不会重复上传的问题
-        key: this.file ? `${this.file.name}_${this.file.response.hash}` : "",
+        key: this.file ? this.file.name : "",
         token: getToken(),
         putExtra: JSON.stringify({
           fname: this.file ? this.file.name : ""
@@ -85,7 +86,8 @@ export default {
     handleBeforeUpload(file) {
       this.file = file;
       const sizeLimit = file.size < this.limitSize;
-      // const fileCountLimit = this.modalModel.fileList.length < this.limit.fileAccount;
+      // const fileCountLimit =
+      //   this.modalModel.fileList.length < this.limit.fileAccount;
       if (
         !this.limitType.includes(
           file.name.slice(file.name.lastIndexOf(".") + 1).toLowerCase()
@@ -154,6 +156,13 @@ export default {
             };
           })
         )
+      );
+    },
+    hashPath(fileName = "newFile.jpg") {
+      return (
+        fileName.substring(0, fileName.lastIndexOf(".")) +
+        createHash(16) +
+        fileName.substring(fileName.lastIndexOf("."))
       );
     }
   }
