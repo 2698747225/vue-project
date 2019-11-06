@@ -1,3 +1,6 @@
+import {
+    isArray
+} from '@/utils/validator';
 const timeFilter = function (value, fmt) {
     let getDate = new Date(value);
     let o = {
@@ -20,6 +23,20 @@ const timeFilter = function (value, fmt) {
     return fmt;
 };
 
+const dictionaryFilter = function (value, dicName) {
+    if (!dicName) {
+        return value;
+    }
+    const allDic = require('./dictionary');
+    if (allDic[dicName] && isArray(allDic[dicName])) {
+        const res = allDic[dicName].find(item => item.name == value);
+        return res ? res.value : value;
+    } else {
+        return value;
+    }
+}
+
 export const filter = {
-    timeFilter
+    timeFilter,
+    dictionaryFilter
 };
