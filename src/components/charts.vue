@@ -3,7 +3,7 @@
 </template>
 <script>
 import echarts from "echarts";
-require('echarts/theme/macarons') // echarts theme
+require("echarts/theme/macarons"); // echarts theme
 export default {
   props: ["data", "chartType"],
   data: function() {
@@ -61,7 +61,7 @@ export default {
   methods: {
     refresh() {
       if (!this.instance) {
-        this.$message.error("图表未实例化！");
+        this.$Message.error("图表未实例化！");
         return;
       }
       this.instance.setOption(this.options);
