@@ -12,6 +12,7 @@ import {
   showLoading,
   hideLoading
 } from './shared/loading';
+import '@/utils/errorLog';
 
 Vue.config.productionTip = false
 Vue.use(iView);
