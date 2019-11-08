@@ -18,7 +18,7 @@ const mutations = {
     },
     SHOW_LOGO(state, v) {
         state.sidebarLogo = v;
-    }
+    },
 }
 
 const actions = {
@@ -33,7 +33,7 @@ const actions = {
     },
     showLogo(context, v) {
         context.commit('SHOW_LOGO', v);
-    }
+    },
 }
 
 export default {

@@ -18,5 +18,10 @@ export default {
     /**
      * @desc 左侧导航logo
      */
-    sidebarLog: true
+    sidebarLog: true,
+
+    /**
+     * @desc 错误日志报告
+     */
+    errorLog: true
 };
