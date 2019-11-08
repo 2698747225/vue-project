@@ -29,7 +29,7 @@ export function isArray(array) {
  * @returns {Boolean}
  */
 export function isObject(obj) {
-    // 函数、对象、数组、并且不为null
+    // 函数、对象、数组、并且不为NaN
     const type = typeof obj;
     return type === 'object' && !!obj;
 }
