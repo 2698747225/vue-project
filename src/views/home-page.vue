@@ -40,6 +40,7 @@
             <BreadcrumbItem v-for="(item,idx) in $route.meta" :key="idx">{{item}}</BreadcrumbItem>
           </Breadcrumb>
           <div>
+            <Icon type="ios-bug" class="debug" @click.native="errorLogModal=true;" />
             <Tooltip content="global">
               <fullscreen
                 style="font-size: 24px;font-weight: 600;cursor: pointer;margin-right:10px;"
@@ -73,6 +74,9 @@
     <Drawer title="设置" v-model="_showSetting">
       <setting></setting>
     </Drawer>
+    <Modal v-model="errorLogModal" title="Error Log" fullscreen>
+      <errorlog></errorlog>
+    </Modal>
   </div>
 </template>
 <script>
@@ -80,6 +84,7 @@ import menuList from "../shared/menu";
 import setting from "../components/settings";
 import simpleLink from "../components/simple-link";
 import fullscreen from "../components/screenfull";
+import errorlog from "@/views/page/error-log";
 import { mapState } from "vuex";
 // require('../assets/Home_logo.jpg');
 export default {
@@ -88,13 +93,15 @@ export default {
       selectIndex: [1],
       menuList: menuList,
       activeName: "",
-      openNames: []
+      openNames: [],
+      errorLogModal: false
     };
   },
   components: {
     setting,
     simpleLink,
-    fullscreen
+    fullscreen,
+    errorlog
   },
   created() {
     // 通过router查找对应的menu
@@ -252,6 +259,11 @@ img {
   &:hover {
     transform: scale(1.2, 1.2);
   }
+}
+.debug {
+  font-size: 24px;
+  margin-right: 10px;
+  cursor: pointer;
 }
 </style>
 <style lang="less">
