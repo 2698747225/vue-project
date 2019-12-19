@@ -39,6 +39,11 @@ const menu = [{
         title: '拖拽',
         icon: 'md-document',
         link: '/homePage/kankan'
+    },{
+        id: '2-4',
+        title: '画板',
+        icon: 'md-document',
+        link: '/homePage/painting'
     }]
 }, {
     id: '3',

@@ -81,6 +81,13 @@ export default new Router({
           meta: ['表格', '复杂表格']
         },
         {
+          path:'painting',
+          component:async()=>{
+            return import('@views/page/painting-panel.vue')
+          },
+          meta: ['组件', '画板']
+        },
+        {
           // 会匹配所有路径
           path: '*',
           redirect: '404',
