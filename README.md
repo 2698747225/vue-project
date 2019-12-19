@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="320" src="http://q05zllqfu.bkt.clouddn.com/微信图片_20191030183532.jpg">
+  <img width="320" src="http://q05zllqfu.bkt.clouddn.com/微信图片_20191030183532.jpg">七牛域名在搞
 </p>
 
 <p align="center">
