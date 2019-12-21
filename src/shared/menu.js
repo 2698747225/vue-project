@@ -39,7 +39,7 @@ const menu = [{
         title: '拖拽',
         icon: 'md-document',
         link: '/homePage/kankan'
-    },{
+    }, {
         id: '2-4',
         title: '画板',
         icon: 'md-document',
@@ -66,6 +66,18 @@ const menu = [{
         title: '复杂表格',
         icon: 'md-document',
         link: '/homePage/complexTable'
+    }]
+},
+{
+    id: '5',
+    title: '媒体',
+    icon: 'ios-paper',
+    root: true,
+    children: [{
+        id: '5-1',
+        title: '聊天',
+        icon: 'md-document',
+        link: '/homePage/wechat'
     }]
 }, {
     id: '9',
