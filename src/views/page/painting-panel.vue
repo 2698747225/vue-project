@@ -8,7 +8,8 @@
              ref="color"
              style="margin-right:8px;" />
       <Button @click="clear()"
-              ref="button" style="margin-right:8px;">清屏</button>
+              ref="button"
+              style="margin-right:8px;">清屏</button>
       <input type="range"
              class="range"
              min="2"
@@ -59,7 +60,6 @@ export default {
   mounted () {
     const self = this;
     const dom = this.$refs.canvas;
-    const button = this.$refs.button;
     if (dom.getContext) {
       this.ctx = dom.getContext('2d');
       this.ctx.strokeStyle = "black";
