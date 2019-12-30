@@ -59,5 +59,10 @@ This will automatically open http://localhost:8083
 npm run build
 ```
 
+## Socket
+
+```bash
+# build for socket server env
+npm run wechat
 
 
