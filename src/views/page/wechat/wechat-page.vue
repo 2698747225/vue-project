@@ -1,6 +1,7 @@
 <template>
   <div class="wechat-content">
     <div style="float:left;position: absolute;top: 120px">
+      <Alert>测试账号只有2个，前端写死的一个是100，一个是101</Alert>
       <Input v-model.number="uid"
              placeholder="测试id"
              style="width: 200px;margin-right: 8px;" />
@@ -11,7 +12,7 @@
     </div>
     <div class="clone">
       <div class="wechat-left">
-        <template v-for="(user,idx) in users">
+        <template v-for="(user,idx) in currentUser">
           <div :key="user+'_'+idx"
                class="user-role"
                @click="selectUser(user)">
@@ -72,7 +73,7 @@
           </div>
         </template>
         <tmplate v-else>
-          
+
         </tmplate>
       </div>
     </div>
@@ -100,11 +101,14 @@ export default {
       return (this.messageList || []).filter(msgContent => {
         // 需要修改，暂时没搭桥
         if (msgContent.bridge && msgContent.bridge.length)
-          return msgContent.bridge.includes(this.uid) && msgContent.bridge[0] !== this.uid;
+          return msgContent.bridge.includes(this.uid) && msgContent.bridge.includes(this.user.uid);
         else
-          return msgContent.type === 2 || (msgContent.type === 1 && msgContent.uid !== this.uid && msgContent.nickname !== this.nickname);
+          return msgContent.type === 2 || (msgContent.type === 1 && msgContent.uid !== this.uid && msgContent.nickname !== this.nickname && msgContent.uid === this.user.uid);
       })
     },
+    currentUser () {
+      return (this.users || []).filter(user => user.uid !== this.uid);
+    }
   },
   created () {
     // mock
