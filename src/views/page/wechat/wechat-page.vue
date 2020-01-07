@@ -2,13 +2,17 @@
   <div class="wechat-content">
     <div style="float:left;position: absolute;top: 120px">
       <Alert>测试账号只有2个，前端写死的一个是100，一个是101</Alert>
-      <Input v-model.number="uid"
+      <!-- <Input v-model.number="uid"
              placeholder="测试id"
              style="width: 200px;margin-right: 8px;" />
       <Input v-model="nickname"
              placeholder="测试name"
-             style="width: 200px;margin-right: 8px;" />
-      <Button @click="connection">测试uid登录</Button>
+             style="width: 200px;margin-right: 8px;" /> -->
+      <Button @click="connection(100,'刘凌宇')"
+              style="margin-right:8px"
+              :disabled="btnStatus(100)">刘凌宇登录</Button>
+      <Button @click="connection(101,'刘航')"
+              :disabled="btnStatus(101)">刘航登录</Button>
     </div>
     <div class="clone">
       <div class="wechat-left">
@@ -108,6 +112,11 @@ export default {
     },
     currentUser () {
       return (this.users || []).filter(user => user.uid !== this.uid);
+    },
+    // 临时写死的三个方法，针对三个btn只读控制
+    loginBtn () {
+      const msgContent = this.messageList.filter(item => item.type === 1);
+      return msgContent.map(item => item.uid) || [];
     }
   },
   created () {
@@ -189,11 +198,13 @@ export default {
         }
       }
     },
-    connection () {
-      if (!this.uid) {
-        this.$Message.error('uid不能为空！');
+    connection (uid, nickname) {
+      if (this.uid) {
+        this.$Message.error('用户已登录');
         return;
       }
+      this.uid = uid;
+      this.nickname = nickname;
       this.conWebSocket();
     },
     selectUser (user) {
@@ -203,6 +214,9 @@ export default {
       }
       this.user = user;
       this.bridge = [this.uid, user.uid];
+    },
+    btnStatus (id) {
+      return this.loginBtn.some(uid => uid === id);
     }
   },
   destroyed () {
